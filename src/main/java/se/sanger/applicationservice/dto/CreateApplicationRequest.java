@@ -2,18 +2,18 @@ package se.sanger.applicationservice.dto;
 /*Skickar data som kommer användas till BenefitApplication*/
 
 public class CreateApplicationRequest {
-    private String applicationName;
+    private String applicantName;
     private String personalNumber;
     private String benefitType;
 
     public CreateApplicationRequest() {}
 
-    public String getApplicationName() {
-        return applicationName;
+    public String getApplicantName() {
+        return applicantName;
     }
 
-    public void setApplicationName(String applicationName) {
-        this.applicationName = applicationName;
+    public void setApplicantName(String applicantName) {
+        this.applicantName = applicantName;
     }
 
     public String getPersonalNumber() {

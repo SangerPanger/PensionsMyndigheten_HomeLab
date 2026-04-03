@@ -22,7 +22,7 @@ public class ApplicationService {
 
         BenefitApplication application = new BenefitApplication(
                 id,
-                request.getApplicationName(),
+                request.getApplicantName(),
                 request.getPersonalNumber(),
                 request.getBenefitType(),
                 ApplicationStatus.DRAFT
