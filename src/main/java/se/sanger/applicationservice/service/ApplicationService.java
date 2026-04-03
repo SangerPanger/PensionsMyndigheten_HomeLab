@@ -1,8 +1,10 @@
 package se.sanger.applicationservice.service;
 
 import se.sanger.applicationservice.dto.CreateApplicationRequest;
+import se.sanger.applicationservice.messaging.ApplicationSubmittedEvent;
 import se.sanger.applicationservice.model.ApplicationStatus;
 import se.sanger.applicationservice.model.BenefitApplication;
+import se.sanger.applicationservice.messaging.ApplicationEventProducer;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -16,6 +18,11 @@ public class ApplicationService {
 
     private final Map<Long, BenefitApplication> storage = new HashMap<>();
     private final AtomicLong idGenerator = new AtomicLong(1);
+    private final ApplicationEventProducer producer;
+
+    public ApplicationService(ApplicationEventProducer producer) {
+        this.producer = producer;
+    }
 
     public BenefitApplication create(CreateApplicationRequest request) {
         Long id = idGenerator.getAndIncrement();
@@ -51,6 +58,15 @@ public class ApplicationService {
     public BenefitApplication submit(Long id) {
         BenefitApplication application = findById(id);
         application.setStatus(ApplicationStatus.SUBMITTED);
+
+        ApplicationSubmittedEvent event = new ApplicationSubmittedEvent(
+                application.getId(),
+                application.getApplicantName(),
+                application.getBenefitType()
+        );
+
+        producer.send(event);
+
         return application;
     }
 }

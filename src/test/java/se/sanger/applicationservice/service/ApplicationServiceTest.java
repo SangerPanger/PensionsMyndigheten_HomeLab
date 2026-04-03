@@ -3,13 +3,16 @@ package se.sanger.applicationservice.service;
 import se.sanger.applicationservice.dto.CreateApplicationRequest;
 import se.sanger.applicationservice.model.ApplicationStatus;
 import se.sanger.applicationservice.model.BenefitApplication;
+import se.sanger.applicationservice.messaging.ApplicationEventProducer;
+import org.mockito.Mockito;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class ApplicationServiceTest {
 
-    private final ApplicationService applicationService = new ApplicationService();
+    private final ApplicationEventProducer producer = Mockito.mock(ApplicationEventProducer.class);
+    private final ApplicationService applicationService = new ApplicationService(producer);
 
     @Test
     void shouldCreateApplicationWithDraftStatus() {
