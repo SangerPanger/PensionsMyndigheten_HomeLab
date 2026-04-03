@@ -24,7 +24,7 @@ public class BenefitApplication {
     }
 
     public long getId() {
-        return id
+        return id;
     }
 
     public void setId(long id) {
