@@ -30,7 +30,7 @@ public class ApplicationController {
         return ResponseEntity.ok(applicationService.findAll());
     }
 
-    @GetMapping("/{id")
+    @GetMapping("/{id}")
     public ResponseEntity<BenefitApplication> findById(@PathVariable long id) {
         return ResponseEntity.ok(applicationService.findById(id));
     }
